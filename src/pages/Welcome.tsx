@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import wateringImg from '../assets/watering.png';
 import colors from '../styles/colors';
@@ -8,16 +8,14 @@ export function Welcome(){
 
    
 
-    function handleVisibility(){
-        setVisible(true)
-    }
+  
 
     return(
         <View style={styles.container}>
         <Text style={styles.title}>Gerencie suas plantas de forma fácil</Text>
 
         
-         <Image source={wateringImg} style={styles.image} />
+         <Image source={wateringImg} style={styles.image} resizeMode='contain' />
         
         <Text style={styles.subtitle}>
             Não esqueça mais de regar suas plantas.
@@ -65,8 +63,8 @@ const styles= StyleSheet.create({
         width: 56
     },
     image:{
-        width: 292,
-        height: 284
+       
+        height: Dimensions.get('window').width*0.7
         
     },
     buttonText:{
