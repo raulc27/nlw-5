@@ -1,9 +1,10 @@
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
-import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import wateringImg from '../assets/watering.png';
 import colors from '../styles/colors';
+import fonts from '../styles/fonts';
 
 export function Welcome(){
 
@@ -12,7 +13,8 @@ export function Welcome(){
   
 
     return(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+        <View style={styles.wrapper} >
         <Text style={styles.title}>Gerencie suas plantas de forma fácil</Text>
 
         
@@ -30,8 +32,9 @@ export function Welcome(){
                 />
             </Text>
         </TouchableOpacity>
-
         </View>
+        </SafeAreaView>
+
     )
 
 
@@ -43,14 +46,23 @@ const styles= StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between'
     },
+    wrapper:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent:'space-around',
+        paddingHorizontal: 20
+    },
     title:{
+        fontFamily:fonts.heading,
         fontSize: 32,
         fontWeight: 'bold',
         textAlign: 'center',
         color: colors.heading,
-        marginTop:38
+        marginTop:38,
+        lineHeight:38
     },
     subtitle:{
+        fontFamily:fonts.text,
         textAlign: 'center',
         fontSize: 18,
         paddingHorizontal: 20,
