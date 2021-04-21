@@ -1,3 +1,4 @@
+import { Feather } from '@expo/vector-icons';
 import React from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -23,8 +24,10 @@ export function Welcome(){
         </Text>
 
         <TouchableOpacity style={styles.button} activeOpacity={0.7} >
-            <Text style={styles.buttonText} >
-                >
+            <Text  >
+                <Feather name="chevron-right" 
+                style={styles.buttonIcon}
+                />
             </Text>
         </TouchableOpacity>
 
@@ -67,7 +70,7 @@ const styles= StyleSheet.create({
         height: Dimensions.get('window').width*0.7
         
     },
-    buttonText:{
+    buttonIcon:{
         color: colors.white,
         fontSize:24
     }
