@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { EnvironmentButton } from '../components/EnvironmentButton';
 import { Header } from '../components/Header';
+import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import api from '../services/api';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -12,15 +13,29 @@ interface EnviromentProps{
     title: string;
 }
 
+interface PlantProps{
+    id: string;
+    name:string;
+    about:string;
+    water_tips:string;
+    photo:string;
+    environments:[string];
+    frequency: {
+      times: number;
+      repeat_every: string;
+}
+}
 
 export function PlantSelect(){
 
 
-    const [enviroments, setEnviroments] = useState<EnviromentProps>();
+    const [enviroments, setEnviroments] = useState<EnviromentProps[]>([]);
+    const [plants, setPlants] = useState<PlantProps[]>([]);
 
+        
     useEffect(()=>{
         async function fetchEnviroment(){
-            const {data} = await api.get('plants_environments');
+            const {data} = await api.get('plants_environments?_sort=title&order=asc');
             setEnviroments([
                {
                    key:'all',
@@ -30,7 +45,15 @@ export function PlantSelect(){
             ]);
         }
         fetchEnviroment();
-    },[])
+    },[]);
+
+    useEffect(()=>{
+        async function fetchPlants(){
+            const {data} = await api.get('plants');
+            setPlants(data);
+        }
+        fetchPlants();
+    },[]);
 
 
     return(
@@ -59,6 +82,17 @@ export function PlantSelect(){
                 />
             </View>
 
+            <View style={styles.plants}>
+                <FlatList
+                    data={plants}
+                    renderItem={({item})=>(
+                        <PlantCardPrimary data={item} />
+                    )}
+                    showsVerticalScrollIndicator={false}
+                    numColumns={2}
+                    contentContainerStyle={styles.contentContainerStyle}
+                />
+            </View>
 
            
 
@@ -94,5 +128,13 @@ const styles = StyleSheet.create({
         paddingBottom:5,
         marginLeft:32,
         marginVertical:32
+    },
+    plants:{
+        flex:1,
+        justifyContent:'center',
+        paddingHorizontal:32
+    },
+    contentContainerStyle:{
+        justifyContent:'center'
     }
 })
