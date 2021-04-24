@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 
@@ -42,6 +43,12 @@ export function PlantSelect(){
     const [loadingMore, setLoadingMore] = useState(true);
     const [loadedAll,setLoadedAll] = useState(false);
 
+
+    const navigation = useNavigation();
+
+    function handlePlantSelect(plant:PlantProps){
+    navigation.navigate('PlantSave',{plant});
+    }
 
     function handleEnviromentSelected(enviroment:string){
         setEnviromentSelected(enviroment);
@@ -133,7 +140,10 @@ export function PlantSelect(){
                     keyExtractor={(item)=>String(item.id)}
 
                     renderItem={({item})=>(
-                        <PlantCardPrimary data={item} />
+                        <PlantCardPrimary 
+                        data={item} 
+                        onPress={()=>handlePlantSelect(item)}
+                        />
                     )}
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
